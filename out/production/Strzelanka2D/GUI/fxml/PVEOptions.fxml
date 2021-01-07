@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="GUI.Controllers.PVEOptionsController"
+            prefHeight="400.0" prefWidth="600.0">
+        <HBox>
+            <fx:define>
+            <ToggleGroup fx:id="firstOpponentsButtons"/>
+            </fx:define>
+            <Label text="First opponent:" />
+            <RadioButton text="Easy" toggleGroup="$firstOpponentsButtons"/>
+            <RadioButton text="Medium" toggleGroup="$firstOpponentsButtons"/>
+            <RadioButton text="Hard" toggleGroup="$firstOpponentsButtons"/>
+        </HBox >
+
+    <HBox>
+        <fx:define>
+            <ToggleGroup fx:id="secondOpponentsButtons"/>
+        </fx:define>
+        <Label text="Second opponent:" />
+        <RadioButton text="Easy" toggleGroup="$secondOpponentsButtons"/>
+        <RadioButton text="Medium" toggleGroup="$secondOpponentsButtons"/>
+        <RadioButton text="Hard" toggleGroup="$secondOpponentsButtons"/>
+    </HBox >
+
+    <HBox>
+        <fx:define>
+            <ToggleGroup fx:id="thirdOpponentsButtons"/>
+        </fx:define>
+        <Label text="Third opponent:" />
+        <RadioButton text="Easy" toggleGroup="$thirdOpponentsButtons"/>
+        <RadioButton text="Medium" toggleGroup="$thirdOpponentsButtons"/>
+        <RadioButton text="Hard" toggleGroup="$thirdOpponentsButtons"/>
+    </HBox >
+    <Button text="Start" fx:id="start" onAction="#startPVE" />
+</VBox>

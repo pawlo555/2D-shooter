@@ -1,5 +1,6 @@
 package GUI;
 
+import GUI.Controllers.OptionsController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,7 +11,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/PVEOptions.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Options.fxml"));
+        Parent root = loader.load();
+        OptionsController optionsController = loader.getController();
+        System.out.println(optionsController);
+        optionsController.setStage(primaryStage);
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();

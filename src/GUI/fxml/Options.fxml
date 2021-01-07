@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="GUI.Controllers.PVEOptionsController"
-            prefHeight="400.0" prefWidth="600.0">
-        <HBox>
-            <fx:define>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="GUI.Controllers.OptionsController"
+      prefHeight="400.0" prefWidth="600.0">
+    <HBox>
+        <fx:define>
+            <ToggleGroup fx:id="versionButtons"/>
+        </fx:define>
+        <RadioButton text="PVP" toggleGroup="$versionButtons"/>
+        <RadioButton text="PVE" toggleGroup="$versionButtons"/>
+    </HBox>
+    <HBox>
+        <fx:define>
             <ToggleGroup fx:id="firstOpponentsButtons"/>
-            </fx:define>
-            <Label text="First opponent:" />
-            <RadioButton text="Easy" toggleGroup="$firstOpponentsButtons"/>
-            <RadioButton text="Medium" toggleGroup="$firstOpponentsButtons"/>
-            <RadioButton text="Hard" toggleGroup="$firstOpponentsButtons"/>
-        </HBox >
+        </fx:define>
+        <Label text="First opponent:" />
+        <RadioButton text="Easy" toggleGroup="$firstOpponentsButtons"/>
+        <RadioButton text="Medium" toggleGroup="$firstOpponentsButtons"/>
+        <RadioButton text="Hard" toggleGroup="$firstOpponentsButtons"/>
+    </HBox >
 
     <HBox>
         <fx:define>
@@ -26,7 +35,6 @@
         <RadioButton text="Medium" toggleGroup="$secondOpponentsButtons"/>
         <RadioButton text="Hard" toggleGroup="$secondOpponentsButtons"/>
     </HBox >
-
     <HBox>
         <fx:define>
             <ToggleGroup fx:id="thirdOpponentsButtons"/>
@@ -36,11 +44,11 @@
         <RadioButton text="Medium" toggleGroup="$thirdOpponentsButtons"/>
         <RadioButton text="Hard" toggleGroup="$thirdOpponentsButtons"/>
     </HBox>
-    <Label text="bonuses" />
+    <Label text="Bonuses" />
     <HBox>
         <RadioButton text="First Aid Kit"/>
         <RadioButton text="Stronger Bullets"/>
         <RadioButton text="Faster reload"/>
     </HBox>
-    <Button text="Start" fx:id="start" onAction="#startPVE" />
+    <Button text="Start" fx:id="start" onAction="#startGame" />
 </VBox>

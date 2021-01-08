@@ -1,8 +1,9 @@
 package Game;
 
 import Utilities.Angle;
+import Utilities.Vector2D;
 
-public class Soldier {
+public class Soldier extends MovableElement {
     private final int maxHP;
     private int currentHP;
     private double speed = 5.0;
@@ -15,4 +16,13 @@ public class Soldier {
     }
 
 
+    @Override
+    public String getPathToJPG() {
+        return null;
+    }
+
+    @Override
+    public Vector2D getUpperLeftCorner() {
+        return null;
+    }
 }

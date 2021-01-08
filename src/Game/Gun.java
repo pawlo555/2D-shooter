@@ -36,7 +36,7 @@ public class Gun {
                 canShoot = true;
                 System.out.println("Gun ready to fire");
             }
-        }, reloadTime);
+        }, shootingRest);
     }
 
 }

@@ -24,6 +24,7 @@ public class OptionsController {
     public void startGame() throws IOException {
         System.out.println("Start a game");
         Parent gameRoot = FXMLLoader.load(getClass().getResource("/GUI/fxml/Game.fxml"));
+
         primaryStage.setScene(new Scene(gameRoot, 300, 275));
     }
 

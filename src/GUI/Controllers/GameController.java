@@ -5,4 +5,9 @@ import javafx.fxml.FXML;
 
 public class GameController {
     @FXML MapVisualizer visualizer;
+
+
+    public MapVisualizer getVisualizer() {
+        return visualizer;
+    }
 }

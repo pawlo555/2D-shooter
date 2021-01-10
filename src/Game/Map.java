@@ -13,6 +13,7 @@ public class Map {
     public Map(int height, int width) {
         this.height = height;
         this.width = width;
+        staticElements.add(new Background(height, width));
     }
 
 

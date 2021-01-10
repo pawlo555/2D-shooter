@@ -1,5 +1,7 @@
 package GUI.Controllers;
 
+import GUI.MapVisualizer;
+import Game.Map;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,8 +25,11 @@ public class OptionsController {
 
     public void startGame() throws IOException {
         System.out.println("Start a game");
-        Parent gameRoot = FXMLLoader.load(getClass().getResource("/GUI/fxml/Game.fxml"));
-
+        FXMLLoader gameLoader = new FXMLLoader(getClass().getResource("../fxml/Game.fxml"));
+        Parent gameRoot = gameLoader.load();
+        GameController gameController = gameLoader.getController();
+        MapVisualizer visualizer = gameController.getVisualizer();
+        visualizer.setMap(new Map(50,50));
         primaryStage.setScene(new Scene(gameRoot, 300, 275));
     }
 

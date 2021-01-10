@@ -7,7 +7,7 @@ public class Soldier extends MovableElement {
     private final int maxHP;
     private int currentHP;
     private double speed = 5.0;
-    private Gun gun = new Gun();
+    private Gun gun = new Gun(1,1,1);
     private Angle angle = new Angle();
 
     public Soldier(int HP) {
@@ -15,14 +15,8 @@ public class Soldier extends MovableElement {
         currentHP = HP;
     }
 
-
     @Override
     public String getPathToJPG() {
-        return null;
-    }
-
-    @Override
-    public Vector2D getUpperLeftCorner() {
         return null;
     }
 }

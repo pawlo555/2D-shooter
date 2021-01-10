@@ -18,6 +18,7 @@ public class MapVisualizer extends Canvas {
 
     public void VisualizeElements() {
         GraphicsContext gc = this.getGraphicsContext2D();
+        gc.clearRect(0, 0, this.getWidth(), this.getHeight());
         for (MapElement element: map.getStaticElements()) {
             VisualizeElement(gc, element);
         }
@@ -28,7 +29,9 @@ public class MapVisualizer extends Canvas {
 
 
     public void VisualizeElement(GraphicsContext gc, MapElement element) {
-        Image image = new Image(element.getPathToJPG());
+        System.out.println(element.getPathToJPG());
+        System.out.println(this.getClass().getResourceAsStream(element.getPathToJPG()));
+        Image image = new Image(this.getClass().getResourceAsStream(element.getPathToJPG()));
         double x = element.getUpperLeftCorner().getX();
         double y = element.getUpperLeftCorner().getY();
         double x2 = element.getLowerRightCorner().getX();

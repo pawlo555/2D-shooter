@@ -15,6 +15,11 @@ public class Angle {
         this.angle = (this.angle+angle)%360;
     }
 
+    public Vector2D toUnitVector() {
+        double angleInRadians = angle*Math.PI/180;
+        return new Vector2D(Math.sin(angleInRadians),Math.cos(angleInRadians));
+    }
+
     public int getAngle() {
         return angle;
     }

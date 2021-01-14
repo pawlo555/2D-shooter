@@ -1,16 +1,17 @@
 package Game;
 
+import Utilities.Collider;
 import Utilities.Vector2D;
 
-import java.util.ArrayList;
-import java.util.List;
+public abstract class MapElement {
+    protected Collider collider;
 
-public interface MapElement {
+    public abstract String getPathToJPG();
+    public abstract Vector2D getUpperLeftCorner();
+    public abstract Vector2D getLowerRightCorner();
+    public abstract Vector2D getCenter();
 
-    String getPathToJPG();
-
-    Vector2D getUpperLeftCorner();
-    Vector2D getLowerRightCorner();
-
-
+    public Collider getCollider() {
+        return collider;
+    }
 }

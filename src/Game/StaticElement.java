@@ -1,6 +1,5 @@
 package Game;
 
-public abstract class StaticElement implements MapElement {
-
+public abstract class StaticElement extends MapElement {
 
 }

@@ -1,16 +1,29 @@
 package Game;
 
+import Utilities.Angle;
+import Utilities.CircleCollider;
+import Utilities.Collider;
 import Utilities.Vector2D;
 
-public abstract class MovableElement implements MapElement {
+public abstract class MovableElement extends MapElement {
+    protected Vector2D center;
 
-    @Override
-    public Vector2D getUpperLeftCorner() {
-        return null;
+    public MovableElement(Vector2D center) {
+        this.center = center;
     }
 
-    @Override
-    public Vector2D getLowerRightCorner() {
-        return null;
+    private Angle angle = new Angle();
+
+    public void turnBy(int angle) {
+        this.angle.turnByAngle(angle);
     }
+
+    public void moveBy(double x) {
+        center = center.add(angle.toUnitVector().multiply(x));
+    }
+
+    public Vector2D getCenter() {
+        return this.center;
+    }
+
 }

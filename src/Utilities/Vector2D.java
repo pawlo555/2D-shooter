@@ -13,6 +13,10 @@ public class Vector2D {
         return new Vector2D(this.getX()+ second.getX(), this.getY() + second.getY());
     }
 
+    public Vector2D multiply(double x) {
+        return new Vector2D(this.getX()*x, this.getY()*x);
+    }
+
     public double distanceBetweenPoints(Vector2D other) {
         return Math.sqrt(Math.pow(this.getX()+other.getX(),2) + Math.pow(this.getY()+other.getY(),2));
     }

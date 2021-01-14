@@ -9,13 +9,21 @@ public class Map {
 
     List<StaticElement> staticElements = new ArrayList<>();
     List<MovableElement> movableElements = new ArrayList<>();
+    private final Background background;
 
     public Map(int height, int width) {
         this.height = height;
         this.width = width;
-        staticElements.add(new Background(height, width));
+        this.background = (new Background(height, width));
     }
 
+    public void addStaticElement(StaticElement staticElement) {
+        staticElements.add(staticElement);
+    }
+
+    public void addMovableElement(MovableElement movableElement) {
+        movableElements.add(movableElement);
+    }
 
     public int getHeight() {
         return height;
@@ -31,5 +39,9 @@ public class Map {
 
     public List<MovableElement> getMovableElements() {
         return this.movableElements;
+    }
+
+    public Background getBackground() {
+        return this.background;
     }
 }

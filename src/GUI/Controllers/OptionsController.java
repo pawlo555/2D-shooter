@@ -1,7 +1,12 @@
 package GUI.Controllers;
 
 import GUI.MapVisualizer;
+import Game.Initialization;
 import Game.Map;
+import Game.Obstacle;
+import Game.Soldier;
+import Utilities.Settings;
+import Utilities.Vector2D;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,8 +34,12 @@ public class OptionsController {
         Parent gameRoot = gameLoader.load();
         GameController gameController = gameLoader.getController();
         MapVisualizer visualizer = gameController.getVisualizer();
-        visualizer.setMap(new Map(50,50));
-        primaryStage.setScene(new Scene(gameRoot, 300, 275));
+        Initialization init = new Initialization(new Settings());
+        visualizer.setMap(init.getMap());
+
+        visualizer.Visualize();
+        primaryStage.setScene(new Scene(gameRoot, 700, 600));
+
     }
 
     public void setStage(Stage currentStage) {

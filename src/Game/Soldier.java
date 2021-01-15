@@ -10,10 +10,9 @@ public class Soldier extends MovableElement {
     private int currentHP;
     private double speed = 5.0;
     private Gun gun = new Gun(1,1,1);
-    private Angle angle = new Angle();
 
     public Soldier(int HP, Vector2D position) {
-        super(position);
+        super(position, new Angle());
         maxHP = HP;
         currentHP = HP;
         collider = new CircleCollider(position, 25);
@@ -33,4 +32,6 @@ public class Soldier extends MovableElement {
     public Vector2D getLowerRightCorner() {
         return center.add(new Vector2D(28.75,27.5));
     }
+
+
 }

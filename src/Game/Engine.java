@@ -1,52 +1,63 @@
 package Game;
 
+import GUI.MapVisualizer;
+
+import java.io.FileNotFoundException;
+
 public class Engine {
-    private boolean isWPressed;
-    private boolean isSPressed;
-    private boolean isAPressed;
-    private boolean isDPressed;
+    public boolean isWPressed = false;
+    public boolean isSPressed = false;
+    public boolean isAPressed = false;
+    public boolean isDPressed = false;
+    public boolean isUpPressed = false;
+    public boolean isDownPressed = false;
+    public boolean isLeftPressed = false;
+    public boolean isRightPressed = false;
     private Soldier player1;
     private Soldier player2;
 
-    private Map map;
+
+    private MapVisualizer visualizer;
     private CollisionEngine collisionEngine;
 
-    public Engine() {
+    public Engine(Map map) {
     }
 
-    public void nextTurn() {
+    public void nextTurn() throws FileNotFoundException {
         if (isWPressed) {
             System.out.println("Move Forward");
-            isWPressed = false;
+            this.player1.moveBy(5);
         }
 
         if (isSPressed) {
             System.out.println("Move Backward");
-            isSPressed = false;
+            this.player1.moveBy(-5);
         }
         if (isAPressed) {
             System.out.println("Move Left");
-            isAPressed = false;
+            player1.turnBy(350);
         }
         if (isDPressed) {
             System.out.println("Move Right");
-            isDPressed = false;
+            player1.turnBy(10);
         }
+
+        visualizer.Visualize();
     }
 
-    public void wPressed() {
-        isWPressed = true;
+    public void setVisualizer(MapVisualizer visualizer) {
+        this.visualizer = visualizer;
     }
 
-    public void sPressed() {
-        isSPressed = true;
+    public void setPlayer1(Soldier player) {
+        System.out.println(player);
+        this.player1 = player;
+        System.out.println(this.player1);
+        this.player1.moveBy(-100);
+        System.out.println(player1.getLowerRightCorner().toString());
     }
 
-    public void aPressed() {
-        isAPressed = true;
-    }
-
-    public void dPressed() {
-        isDPressed = true;
+    public Soldier getPlayer1() {
+        return this.player1;
     }
 }

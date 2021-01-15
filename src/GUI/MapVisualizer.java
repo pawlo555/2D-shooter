@@ -3,11 +3,14 @@ package GUI;
 import Game.Background;
 import Game.Map;
 import Game.MapElement;
+import Game.MovableElement;
+import Utilities.Angle;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.transform.Rotate;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -22,9 +25,8 @@ public class MapVisualizer extends Canvas {
     }
 
     public void Visualize() throws FileNotFoundException {
-        GraphicsContext gc = this.getGraphicsContext2D();
-        gc.clearRect(0, 0, this.getWidth(), this.getHeight());
         VisualizeBackground();
+        GraphicsContext gc = this.getGraphicsContext2D();
         for (MapElement element: map.getStaticElements()) {
             VisualizeElement(gc, element);
         }
@@ -34,18 +36,36 @@ public class MapVisualizer extends Canvas {
     }
 
     private void VisualizeBackground() throws FileNotFoundException {
-        Background background = this.map.getBackground();
         GraphicsContext gc = this.getGraphicsContext2D();
+        Background background = this.map.getBackground();
         Image image = new Image(new FileInputStream(background.getPathToJPG()));
-        gc.drawImage(image, 0, 0, this.getWidth(), this.getHeight());
+        gc.drawImage(image,0,0,map.getWidth(), map.getWidth());
     }
 
-    private void VisualizeElement(GraphicsContext gc, MapElement element) throws FileNotFoundException {
+    private void VisualizeElement(GraphicsContext gc,MapElement element) throws FileNotFoundException {
         Image image = new Image(new FileInputStream(element.getPathToJPG()));
+        Angle angle = new Angle();
+        if (element instanceof MovableElement) {
+            MovableElement movableElement = (MovableElement) element;
+            angle = movableElement.getAngle();
+        }
         double x = element.getUpperLeftCorner().getX();
         double y = element.getUpperLeftCorner().getY();
         double x2 = element.getLowerRightCorner().getX();
         double y2 = element.getLowerRightCorner().getY();
-        gc.drawImage(image, x, y, x2-x, y2-y);
+        drawRotatedImage(gc, image,  angle.getAngle(),   x,   y, x2-x,y2-y);
     }
+
+    private void rotate(GraphicsContext gc, double angle, double px, double py) {
+        Rotate r = new Rotate(angle, px, py);
+        gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
+    }
+
+    private void drawRotatedImage(GraphicsContext gc, Image image, double angle, double tlpx, double tlpy, double dx, double dy) {
+        gc.save(); // saves the current state on stack, including the current transform
+        rotate(gc, angle, tlpx + dx/2 , tlpy + dy/2);
+        gc.drawImage(image, tlpx, tlpy, dx, dy);
+        gc.restore(); // back to original state (before rotation)
+    }
+
 }

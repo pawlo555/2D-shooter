@@ -7,15 +7,16 @@ import Utilities.Vector2D;
 
 public abstract class MovableElement extends MapElement {
     protected Vector2D center;
+    protected Angle angle;
 
-    public MovableElement(Vector2D center) {
+    public MovableElement(Vector2D center, Angle angle) {
         this.center = center;
+        this.angle = angle;
     }
-
-    private Angle angle = new Angle();
 
     public void turnBy(int angle) {
         this.angle.turnByAngle(angle);
+        System.out.println(this.angle.toUnitVector().toString());
     }
 
     public void moveBy(double x) {
@@ -26,4 +27,7 @@ public abstract class MovableElement extends MapElement {
         return this.center;
     }
 
+    public Angle getAngle() {
+        return this.angle;
+    }
 }

@@ -1,10 +1,7 @@
 package GUI.Controllers;
 
 import GUI.MapVisualizer;
-import Game.Initialization;
-import Game.Map;
-import Game.Obstacle;
-import Game.Soldier;
+import Game.*;
 import Utilities.Settings;
 import Utilities.Vector2D;
 import javafx.fxml.FXML;
@@ -20,11 +17,16 @@ import java.io.IOException;
 
 public class OptionsController {
 
-    @FXML private Button nextButton;
     @FXML private ToggleGroup versionButtons;
+    @FXML private ToggleGroup mapChanger;
     @FXML private ToggleGroup firstOpponentsButtons;
     @FXML private ToggleGroup secondOpponentsButtons;
     @FXML private ToggleGroup thirdOpponentsButtons;
+    @FXML private RadioButton firstAidKit;
+    @FXML private RadioButton fasterReload;
+    @FXML private RadioButton strongerBullets;
+    @FXML private RadioButton fasterMovement;
+
 
     private Stage primaryStage;
 
@@ -33,16 +35,54 @@ public class OptionsController {
         FXMLLoader gameLoader = new FXMLLoader(getClass().getResource("../fxml/Game.fxml"));
         Parent gameRoot = gameLoader.load();
         GameController gameController = gameLoader.getController();
+        Initialization init = new Initialization(new Settings(this));
+        Engine initEngine = init.getEngine();
+        Map initMap = init.getMap();
         MapVisualizer visualizer = gameController.getVisualizer();
-        Initialization init = new Initialization(new Settings());
-        visualizer.setMap(init.getMap());
-
-        visualizer.Visualize();
+        visualizer.setMap(initMap);
+        gameController.setEngine(initEngine);
+        gameController.setEvents(init.getEventsToHandle());
+        initEngine.setVisualizer(visualizer);
         primaryStage.setScene(new Scene(gameRoot, 700, 600));
-
     }
 
     public void setStage(Stage currentStage) {
         primaryStage = currentStage;
+    }
+
+    public ToggleGroup getMapChanger() {
+        return mapChanger;
+    }
+
+    public ToggleGroup getFirstOpponentsButtons() {
+        return firstOpponentsButtons;
+    }
+
+    public ToggleGroup getSecondOpponentsButtons() {
+        return secondOpponentsButtons;
+    }
+
+    public ToggleGroup getThirdOpponentsButtons() {
+        return thirdOpponentsButtons;
+    }
+
+    public RadioButton getFasterReload() {
+        return fasterReload;
+    }
+
+    public RadioButton getFirstAidKit() {
+        return firstAidKit;
+    }
+
+    public RadioButton getStrongerBullets() {
+        return strongerBullets;
+    }
+
+    public ToggleGroup getVersionButtons() {
+        return versionButtons;
+    }
+
+    public RadioButton getFasterMovement() {
+        return fasterMovement;
     }
 }

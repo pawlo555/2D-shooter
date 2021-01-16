@@ -33,13 +33,11 @@ public class GameController {
     public void startGame() {
         System.out.println(startButton.getScene());
         scene = startButton.getScene();
-        //System.out.println("Start game");
         setEvents();
         this.timeline = new Timeline(new KeyFrame(
                 Duration.millis(100),
                 ae -> {
                     try {
-                        //System.out.println("New Turn");
                         engine.nextTurn();
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();

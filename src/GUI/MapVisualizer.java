@@ -61,10 +61,11 @@ public class MapVisualizer extends Canvas {
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
 
-    private void drawRotatedImage(GraphicsContext gc, Image image, double angle, double tlpx, double tlpy, double dx, double dy) {
+    private void drawRotatedImage(GraphicsContext gc, Image image, double angle, double x, double y, double dx, double dy) {
         gc.save(); // saves the current state on stack, including the current transform
-        rotate(gc, angle, tlpx + dx/2 , tlpy + dy/2);
-        gc.drawImage(image, tlpx, tlpy, dx, dy);
+        rotate(gc, angle, x + dx/2 , y + dy/2);
+        gc.drawImage(image, x, y, dx, dy);
+
         gc.restore(); // back to original state (before rotation)
     }
 

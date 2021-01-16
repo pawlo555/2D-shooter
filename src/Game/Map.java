@@ -1,7 +1,10 @@
 package Game;
 
+import Utilities.CircleCollider;
+import Utilities.MapObserver;
 import Utilities.Settings;
 import Utilities.Vector2D;
+import javafx.scene.input.KeyCombination;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +17,8 @@ public class Map {
     ArrayList<MovableElement> movableElements = new ArrayList<>();
     private final Background background;
 
+    private ArrayList<MapObserver> observers = new ArrayList<>();
+
     public Map(Settings settings) {
         if (settings.isFirstOrSecondMap()) {
             LoadFirstMap();
@@ -25,10 +30,22 @@ public class Map {
 
     public void addStaticElement(StaticElement staticElement) {
         staticElements.add(staticElement);
+        elementAddedToMap(staticElement);
     }
 
     public void addMovableElement(MovableElement movableElement) {
         movableElements.add(movableElement);
+        elementAddedToMap(movableElement);
+    }
+
+    public void removeMovableElement(MovableElement movableElement) {
+        movableElements.remove(movableElement);
+        elementRemovedFromMap(movableElement);
+    }
+
+    public void removeStaticElement(StaticElement staticElement) {
+        staticElements.remove(staticElement);
+        elementRemovedFromMap(staticElement);
     }
 
     public int getHeight() {
@@ -70,5 +87,38 @@ public class Map {
         addStaticElement(new Obstacle(new Vector2D(370,300), 30));
         addStaticElement(new Obstacle(new Vector2D(370,400), 30));
         addStaticElement(new Obstacle(new Vector2D(370,500), 30));
+    }
+
+    private void elementAddedToMap(MapElement element) {
+        for (MapObserver observer: observers) {
+            observer.ElementAddToMap(element);
+        }
+    }
+
+    private void elementRemovedFromMap(MapElement element) {
+        for (MapObserver observer: observers) {
+            observer.ElementDeleteFromMap(element);
+        }
+    }
+
+    public void addObserver(MapObserver observer) {
+        observers.add(observer);
+        for (StaticElement staticElement: staticElements) {
+            elementAddedToMap(staticElement);
+        }
+        for (MovableElement movableElement: movableElements) {
+            elementAddedToMap(movableElement);
+        }
+    }
+
+    public boolean isInMap(MovableElement movableElement) {
+        CircleCollider collider = (CircleCollider) movableElement.getCollider();
+        Vector2D center = collider.getCenter();
+        double radius = collider.lengthToEnd(new Vector2D(0,0));
+        double X = center.getX();
+        double Y = center.getY();
+        return (X-radius > 0 && Y-radius> 0 && X+radius < getWidth() && Y+radius < getHeight());
+
+
     }
 }

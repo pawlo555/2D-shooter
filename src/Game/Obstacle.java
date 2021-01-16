@@ -6,12 +6,11 @@ import Utilities.Vector2D;
 public class Obstacle extends StaticElement {
     private final Vector2D upperLeftCorner;
     private final Vector2D lowerRightCorner;
-    private final Vector2D center;
 
     public Obstacle(Vector2D center, double x) {
+        super(center);
         this.upperLeftCorner = new Vector2D(center.getX()-x,center.getY()-x);
         this.lowerRightCorner = new Vector2D(center.getX()+x,center.getY()+x);
-        this.center = center;
         collider = new RectangleCollider(center,x,x);
     }
 
@@ -30,8 +29,4 @@ public class Obstacle extends StaticElement {
         return lowerRightCorner;
     }
 
-    @Override
-    public Vector2D getCenter() {
-        return center;
-    }
 }

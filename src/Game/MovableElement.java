@@ -10,17 +10,19 @@ public abstract class MovableElement extends MapElement {
     protected Angle angle;
 
     public MovableElement(Vector2D center, Angle angle) {
+        System.out.println(center);
         this.center = center;
         this.angle = angle;
     }
 
     public void turnBy(int angle) {
         this.angle.turnByAngle(angle);
-        System.out.println(this.angle.toUnitVector().toString());
     }
 
     public void moveBy(double x) {
-        center = center.add(angle.toUnitVector().multiply(x));
+        Vector2D newCenter = center.add(angle.toUnitVector().multiply(x));
+        center = newCenter;
+        collider.changeCenterPosition(newCenter);
     }
 
     public Vector2D getCenter() {
@@ -28,6 +30,6 @@ public abstract class MovableElement extends MapElement {
     }
 
     public Angle getAngle() {
-        return this.angle;
+        return new Angle(angle.getAngle());
     }
 }

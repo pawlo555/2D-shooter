@@ -17,11 +17,13 @@ public class RectangleCollider extends Collider {
 
     @Override
     public double lengthToEnd(Vector2D otherCollider) {
-        Vector2D shift = otherCollider.add(getCenter().multiply(-1));
-        double X = shift.getX();
-        double Y = shift.getY();
-        double dy = x*Y/X;
-        double dx = y/Y*X;
-        return Math.sqrt(dy*dy+dx*dx);
+        double a = Math.abs(this.getCenter().getX()-otherCollider.getX());
+        double b = Math.abs(this.getCenter().getY()-otherCollider.getY());
+        double c = Math.sqrt(a*a+b*b);
+        if (b > a) {
+            return c*y/b;
+        }
+        else
+            return c*x/a;
     }
 }

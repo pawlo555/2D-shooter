@@ -18,7 +18,7 @@ public class Vector2D {
     }
 
     public double distanceBetweenPoints(Vector2D other) {
-        return Math.sqrt(Math.pow(this.getX()+other.getX(),2) + Math.pow(this.getY()+other.getY(),2));
+        return Math.sqrt(Math.pow(this.getX()-other.getX(),2) + Math.pow(this.getY()-other.getY(),2));
     }
 
     public boolean follows(Vector2D other) {

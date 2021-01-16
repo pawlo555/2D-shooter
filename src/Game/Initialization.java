@@ -21,12 +21,12 @@ public class Initialization {
         else {
             InitializePVE();
         }
-        SpawnSoldiers(settings);
-
+        addPlayer1();
     }
 
-    private void SpawnSoldiers(Settings settings) {
-        Soldier player1 = new Soldier(10,new Vector2D(100,200));
+    private void addPlayer1() {
+        Soldier player1 = new Soldier(10,new Vector2D(100,250));
+        System.out.println("After creation:" + player1.getCenter());
         map.addMovableElement(player1);
         engine.setPlayer1(player1);
     }
@@ -34,22 +34,29 @@ public class Initialization {
     private void InitializePVP() {
         System.out.println("PVP");
         setPVPEventHandler();
+        Soldier player2 = new Soldier(10,new Vector2D(500,250));
+        map.addMovableElement(player2);
+        engine.setPlayer2(player2);
     }
 
     private void InitializePVE() {
         System.out.println("PVE");
         setPVEEventHandler();
+        addBot(new Vector2D(550,100));
+        addBot(new Vector2D(550,200));
+        addBot(new Vector2D(550,300));
+    }
+
+    private void addBot(Vector2D vector) {
+        Soldier bot = new Soldier(10, vector);
+        map.addMovableElement(bot);
+        engine.addBot(bot);
     }
 
     private void setPVPEventHandler() {
         eventsToHandle = e -> {
             PressedEventsFirstPlayer(e);
             ReleasedEventsFirstPlayer(e);
-
-            if (e.getCode() == KeyCode.W && e.getEventType() == KeyEvent.KEY_PRESSED) {
-                engine.isWPressed = true;
-                System.out.println("W pressed");
-            }
 
             if (e.getCode() == KeyCode.UP && e.getEventType() == KeyEvent.KEY_PRESSED)
                 engine.isUpPressed = true;
@@ -61,13 +68,13 @@ public class Initialization {
                 engine.isRightPressed = true;
 
             if (e.getCode() == KeyCode.UP && e.getEventType() == KeyEvent.KEY_RELEASED)
-                engine.isWPressed = false;
+                engine.isUpPressed = false;
             if (e.getCode() == KeyCode.DOWN && e.getEventType() == KeyEvent.KEY_RELEASED)
-                engine.isSPressed = false;
+                engine.isDownPressed = false;
             if (e.getCode() == KeyCode.LEFT && e.getEventType() == KeyEvent.KEY_RELEASED)
-                engine.isAPressed = false;
+                engine.isLeftPressed = false;
             if (e.getCode() == KeyCode.RIGHT && e.getEventType() == KeyEvent.KEY_RELEASED)
-                engine.isDPressed = false;
+                engine.isRightPressed = false;
         };
     }
 
@@ -79,16 +86,16 @@ public class Initialization {
     }
 
     private void PressedEventsFirstPlayer(KeyEvent e) {
-        if (e.getCode() == KeyCode.W && e.getEventType() == KeyEvent.KEY_PRESSED) {
+        if (e.getCode() == KeyCode.W && e.getEventType() == KeyEvent.KEY_PRESSED)
             engine.isWPressed = true;
-            System.out.println("W pressed");
-        }
         if (e.getCode() == KeyCode.S && e.getEventType() == KeyEvent.KEY_PRESSED)
             engine.isSPressed = true;
         if (e.getCode() == KeyCode.A && e.getEventType() == KeyEvent.KEY_PRESSED)
             engine.isAPressed = true;
         if (e.getCode() == KeyCode.D && e.getEventType() == KeyEvent.KEY_PRESSED)
             engine.isDPressed = true;
+        if (e.getCode() == KeyCode.SPACE && e.getEventType() == KeyEvent.KEY_PRESSED)
+            engine.isSpacePressed = true;
     }
 
     private void ReleasedEventsFirstPlayer(KeyEvent e) {
@@ -100,6 +107,8 @@ public class Initialization {
             engine.isAPressed = false;
         if (e.getCode() == KeyCode.D && e.getEventType() == KeyEvent.KEY_RELEASED)
             engine.isDPressed = false;
+        if (e.getCode() == KeyCode.SPACE && e.getEventType() == KeyEvent.KEY_RELEASED)
+            engine.isSpacePressed = false;
     }
 
     public Map getMap() {

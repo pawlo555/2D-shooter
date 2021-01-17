@@ -43,7 +43,9 @@ public class OptionsController {
         gameController.setEngine(initEngine);
         gameController.setEvents(init.getEventsToHandle());
         initEngine.setVisualizer(visualizer);
-        primaryStage.setScene(new Scene(gameRoot, 700, 600));
+        primaryStage.setScene(new Scene(gameRoot, initMap.getWidth(), initMap.getHeight()+ 50));
+        gameController.setElements();
+
     }
 
     public void setStage(Stage currentStage) {

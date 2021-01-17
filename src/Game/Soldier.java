@@ -1,6 +1,7 @@
 package Game;
 
 import Utilities.Angle;
+import Utilities.BonusType;
 import Utilities.CircleCollider;
 import Utilities.Vector2D;
 
@@ -59,5 +60,16 @@ public class Soldier extends MovableElement {
 
     public void fasterReload() {
         gun.setReloadTime(3000);
+    }
+
+    public void getBonus(Bonus bonus) {
+        BonusType bonusType = bonus.getBonusType();
+        switch (bonusType) {
+
+            case FIRST_AID_KIT -> firstAidKit();
+            case FASTER_MOVEMENT -> fasterMovement();
+            case STRONGER_BULLETS -> strongerBullets();
+            case FASTER_RELOAD -> fasterReload();
+        }
     }
 }

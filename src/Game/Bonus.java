@@ -1,26 +1,26 @@
 package Game;
 
+import Utilities.BonusType;
+import Utilities.CircleCollider;
 import Utilities.Vector2D;
 
 import javax.management.InvalidAttributeValueException;
 
 public class Bonus extends StaticElement {
-    private final int bonusType;
+    private final BonusType bonusType;
     private final double size;
-
-    public Bonus(Vector2D center, int bonusType) {
+    private int turnsToEnd = 100;
+    public Bonus(Vector2D center, BonusType bonusType) {
         super(center);
         this.bonusType = bonusType;
         size = 15;
+        collider = new CircleCollider(center,0);
     }
 
 
     @Override
     public String getPathToJPG() {
-        switch (bonusType) {
-            case 1: return "C:\\Users\\spawe\\OneDrive\\Pulpit\\Studia\\ProgramowanieObiektowe\\Strzelanka2D\\src\\Images";
-            default: return "BAD PATH";
-        }
+        return bonusType.getPath();
     }
 
     @Override
@@ -33,4 +33,12 @@ public class Bonus extends StaticElement {
         return center.add(new Vector2D(-size, -size));
     }
 
+    public BonusType getBonusType() {
+        return bonusType;
+    }
+
+    public boolean nextTurn() {
+        turnsToEnd = turnsToEnd - 1;
+        return (turnsToEnd > 0);
+    }
 }

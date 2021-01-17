@@ -9,7 +9,7 @@ public class Gun {
     private int timeBetweenShoots = 1000;
     private int reloadTime = 5000;
     private final int maxAmmoInMagazine = 4;
-    private int currentAmmoInMagazine = 30;
+    private int currentAmmoInMagazine = 4;
     private int damageDealt = 5;
     private double bulletsVelocity = 10;
 

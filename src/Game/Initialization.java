@@ -1,20 +1,26 @@
 package Game;
 
 import GUI.MapVisualizer;
+import Utilities.BonusType;
 import Utilities.Settings;
 import Utilities.Vector2D;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+import java.util.ArrayList;
+
 public class Initialization {
     private Map map;
     private Engine engine;
     private EventHandler<KeyEvent> eventsToHandle;
 
+    private ArrayList<BonusType> possibleBonuses = new ArrayList<>();
+
     public Initialization(Settings settings) {
+        fillPossibleBonuses(settings);
         this.map = new Map(settings);
-        this.engine = new Engine(map);
+        this.engine = new Engine(map, this);
         if (settings.isPVPorPVE()) {
             InitializePVP();
         }
@@ -22,6 +28,22 @@ public class Initialization {
             InitializePVE();
         }
         addPlayer1();
+
+    }
+
+    private void fillPossibleBonuses(Settings settings) {
+        if (settings.isFasterMovement()) {
+            possibleBonuses.add(BonusType.FASTER_MOVEMENT);
+        }
+        if (settings.isFasterReload()) {
+            possibleBonuses.add(BonusType.FASTER_RELOAD);
+        }
+        if (settings.isFirstAidKit()) {
+            possibleBonuses.add(BonusType.FIRST_AID_KIT);
+        }
+        if (settings.isStrongerBullets()) {
+            possibleBonuses.add(BonusType.STRONGER_BULLETS);
+        }
     }
 
     private void addPlayer1() {
@@ -66,6 +88,8 @@ public class Initialization {
                 engine.isLeftPressed = true;
             if (e.getCode() == KeyCode.RIGHT && e.getEventType() == KeyEvent.KEY_PRESSED)
                 engine.isRightPressed = true;
+            if (e.getCode() == KeyCode.ENTER && e.getEventType() == KeyEvent.KEY_PRESSED)
+                engine.isEnterPressed = true;
 
             if (e.getCode() == KeyCode.UP && e.getEventType() == KeyEvent.KEY_RELEASED)
                 engine.isUpPressed = false;
@@ -75,6 +99,8 @@ public class Initialization {
                 engine.isLeftPressed = false;
             if (e.getCode() == KeyCode.RIGHT && e.getEventType() == KeyEvent.KEY_RELEASED)
                 engine.isRightPressed = false;
+            if (e.getCode() == KeyCode.ENTER && e.getEventType() == KeyEvent.KEY_RELEASED)
+                engine.isEnterPressed = false;
         };
     }
 
@@ -123,4 +149,7 @@ public class Initialization {
         return eventsToHandle;
     }
 
+    public ArrayList<BonusType> getPossibleBonuses() {
+        return possibleBonuses;
+    }
 }

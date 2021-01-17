@@ -44,7 +44,7 @@ public class MapVisualizer extends Canvas {
 
     private void VisualizeElement(GraphicsContext gc,MapElement element) throws FileNotFoundException {
         Image image = new Image(new FileInputStream(element.getPathToJPG()));
-        Angle angle = new Angle();
+        Angle angle = new Angle(180);
         if (element instanceof MovableElement) {
             MovableElement movableElement = (MovableElement) element;
             angle = movableElement.getAngle();

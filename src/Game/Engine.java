@@ -1,10 +1,12 @@
 package Game;
 
 import GUI.MapVisualizer;
+import Utilities.BonusType;
 import Utilities.Vector2D;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Engine {
     public boolean isWPressed = false;
@@ -27,17 +29,19 @@ public class Engine {
     private ArrayList<Bullet> bullets = new ArrayList<>();
     private ArrayList<Soldier> bots = new ArrayList<>();
     private ArrayList<Bonus> bonuses = new ArrayList<>();
+    private ArrayList<BonusType> possibleBonuses = new ArrayList<>();
 
-    public Engine(Map map) {
+    public Engine(Map map, Initialization init) {
         this.map = map;
         collisionEngine = new CollisionEngine();
         map.addObserver(collisionEngine);
+        possibleBonuses.addAll(init.getPossibleBonuses());
     }
 
-    public void nextTurn() throws FileNotFoundException {
+    public void nextTurn() throws FileNotFoundException, IllegalStateException {
+
         if (isWPressed) {
             this.player1.moveBy(5);
-            System.out.println(collisionEngine.isCollision(player1));
             if (collisionEngine.isCollision(player1) || !map.isInMap(player1)) {
                 this.player1.moveBy(-5);
             }
@@ -59,10 +63,16 @@ public class Engine {
             player1.turnBy(10);
         }
         if (isUpPressed) {
-            player2.moveBy(5);
+            this.player2.moveBy(5);
+            if (collisionEngine.isCollision(player2) || !map.isInMap(player2)) {
+                this.player2.moveBy(-5);
+            }
         }
         if (isDownPressed) {
-            player2.moveBy(-5);
+            this.player2.moveBy(-5);
+            if (collisionEngine.isCollision(player2) || !map.isInMap(player2)) {
+                this.player2.moveBy(5);
+            }
         }
         if (isLeftPressed) {
             player2.turnBy(350);
@@ -70,25 +80,64 @@ public class Engine {
         if (isRightPressed) {
             player2.turnBy(10);
         }
+        if (isEnterPressed) {
+            gunShoot(player2);
+        }
+
         updateBullets();
         updateSoldiers();
+        checkBonuses();
         trySpawnBonus();
         visualizer.Visualize();
     }
 
-    private void updateSoldiers() {
+    private void checkBonuses() {
+        ArrayList<Soldier> soldiers = getSoldierList();
+        for (Soldier soldier: soldiers) {
+            Bonus bonus = bonusInArea(soldier);
+            if (bonus != null) {
+                soldier.getBonus(bonus);
+                bonuses.remove(bonus);
+                map.removeStaticElement(bonus);
+            }
+        }
+        ArrayList<Bonus> bonusesToRemove = new ArrayList<>();
+        for (Bonus bonus: bonuses) {
+            if (!bonus.nextTurn()) {
+                bonusesToRemove.add(bonus);
+                map.removeStaticElement(bonus);
+            }
+        }
+        bonuses.removeAll(bonusesToRemove);
+
+    }
+
+    private Bonus bonusInArea(Soldier soldier) {
+        for (Bonus bonus: bonuses) {
+            if (bonus.getCenter().distanceBetweenPoints(soldier.getCenter()) < 45) {
+                System.out.println("Mam bonus!");
+                return bonus;
+            }
+        }
+        return null;
+    }
+
+    private void updateSoldiers() throws IllegalStateException {
         ArrayList<Soldier> soldiers = getSoldierList();
         for (Soldier soldier: soldiers) {
             if (soldier.getCurrentHP() <= 0) {
                 map.removeMovableElement(soldier);
                 if (player1 == soldier) {
-                    System.out.println("Player1 died!!!");
+                    throw new IllegalStateException("Second Player Won");
                 }
                 else if (player2 == soldier) {
-                    System.out.println("Player2 died!!!");
+                    throw new IllegalStateException("First Player Won");
                 }
                 else {
                     bots.remove(soldier);
+                    if (bots.isEmpty()) {
+                        throw  new IllegalStateException("First Player Won");
+                    }
                 }
             }
         }
@@ -123,10 +172,14 @@ public class Engine {
     }
 
     private void trySpawnBonus() {
-        if (Math.random() > 0.9) {
+        if (Math.random() > 0.99 && !possibleBonuses.isEmpty()) {
             System.out.println("Spawn a Bonus");
-            int bonusType = (int) (Math.random()*4) + 1;
-            System.out.println("BonusType: " + bonusType);
+            BonusType bonusType = possibleBonuses.get(ThreadLocalRandom.current().nextInt(possibleBonuses.size()));
+            double x = Math.random()*map.getWidth();
+            double y = Math.random()*map.getWidth();
+            Bonus bonus = new Bonus(new Vector2D(x,y), bonusType);
+            map.addStaticElement(bonus);
+            bonuses.add(bonus);
         }
     }
 

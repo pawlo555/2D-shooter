@@ -15,8 +15,8 @@
         <fx:define>
             <ToggleGroup fx:id="versionButtons"/>
         </fx:define>
-        <RadioButton text="PVP" toggleGroup="$versionButtons" selected="true"/>
-        <RadioButton text="PVE" toggleGroup="$versionButtons"/>
+        <RadioButton text="PVP" toggleGroup="$versionButtons" />
+        <RadioButton text="PVE" toggleGroup="$versionButtons" selected="true"/>
     </HBox>
     <HBox>
         <fx:define>

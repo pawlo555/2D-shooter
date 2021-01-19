@@ -2,6 +2,8 @@ package Game;
 
 import GUI.MapVisualizer;
 import Utilities.BonusType;
+import Utilities.BotAI;
+import Utilities.EngineObserver;
 import Utilities.Vector2D;
 
 import java.io.FileNotFoundException;
@@ -22,12 +24,13 @@ public class Engine {
     private Soldier player1;
     private Soldier player2;
 
-    private MapVisualizer visualizer;
+    private ArrayList<EngineObserver> observers = new ArrayList<>();
     private Map map;
     private CollisionEngine collisionEngine;
 
     private ArrayList<Bullet> bullets = new ArrayList<>();
     private ArrayList<Soldier> bots = new ArrayList<>();
+    private ArrayList<BotAI> botsAI = new ArrayList<>();
     private ArrayList<Bonus> bonuses = new ArrayList<>();
     private ArrayList<BonusType> possibleBonuses = new ArrayList<>();
 
@@ -88,7 +91,8 @@ public class Engine {
         updateSoldiers();
         checkBonuses();
         trySpawnBonus();
-        visualizer.Visualize();
+        moveBots();
+        notifyObservers();
     }
 
     private void checkBonuses() {
@@ -134,8 +138,8 @@ public class Engine {
                     throw new IllegalStateException("First Player Won");
                 }
                 else {
-                    bots.remove(soldier);
-                    if (bots.isEmpty()) {
+                    botDies(soldier);
+                    if (allBotsAreDead()) {
                         throw  new IllegalStateException("First Player Won");
                     }
                 }
@@ -144,8 +148,19 @@ public class Engine {
 
     }
 
-    public void setVisualizer(MapVisualizer visualizer) {
-        this.visualizer = visualizer;
+    private boolean allBotsAreDead() {
+        for (Soldier soldier: bots) {
+            if (soldier.getCurrentHP() > 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void notifyObservers() {
+        for (EngineObserver observer: observers) {
+            observer.nextEpochRendered();
+        }
     }
 
     public void setPlayer1(Soldier player) {
@@ -159,7 +174,7 @@ public class Engine {
         this.player2 = soldier;
     }
 
-    private void gunShoot(Soldier soldier) {
+    public void gunShoot(Soldier soldier) {
         if (soldier.getGun().isCanShoot()) {
             Vector2D bulletPosition = soldier.getCenter().add(soldier.getAngle().toUnitVector().multiply(40));
             double velocity = soldier.getGun().getBulletsVelocity();
@@ -222,6 +237,7 @@ public class Engine {
 
     public void addBot(Soldier bot) {
         bots.add(bot);
+        botsAI.add(new BotAI(this, collisionEngine, bot, player1));
     }
 
     private ArrayList<Soldier> getSoldierList() {
@@ -231,5 +247,53 @@ public class Engine {
         if (player2 != null)
             soldiers.add(player2);
         return soldiers;
+    }
+
+    public void addObserver(EngineObserver observer) {
+        observers.add(observer);
+    }
+
+    public String getPlayer1HPInfo() {
+        return player1.getHPInfo();
+    }
+
+    public String getPlayer2HPInfo() {
+        return player2.getHPInfo();
+    }
+
+    public ArrayList<String> getBotsHPInfo() {
+        ArrayList<String> botsHPInfo = new ArrayList<>();
+        for (Soldier bot: bots) {
+            botsHPInfo.add(bot.getHPInfo());
+        }
+        while (botsHPInfo.size() < 3) {
+            botsHPInfo.add("DEAD");
+        }
+        return botsHPInfo;
+    }
+
+    private void botDies(Soldier deadBot) {
+        for (Soldier bot: bots) {
+            if (bot == deadBot) {
+                for (BotAI ai: botsAI) {
+                    if (ai.getBot() == bot) {
+                        botsAI.remove(ai);
+                        break;
+                    }
+                }
+                bots.remove(bot);
+                return;
+            }
+        }
+    }
+
+    private void moveBots() {
+        for (BotAI ai: botsAI) {
+            ai.moveBot();
+        }
+    }
+
+    public Map getMap() {
+        return this.map;
     }
 }

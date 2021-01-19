@@ -1,26 +1,28 @@
 package Game;
 
-import Utilities.Angle;
-import Utilities.BonusType;
-import Utilities.CircleCollider;
-import Utilities.Vector2D;
+import Utilities.*;
 
 public class Soldier extends MovableElement {
     private final int maxHP;
     private int currentHP;
     private double speed = 5.0;
-    private Gun gun = new Gun(2000,5);
+    private Gun gun;
+    private SoldierLevel level;
 
-    public Soldier(int HP, Vector2D position) {
+    public Soldier(SoldierLevel level, Vector2D position) {
         super(position, new Angle());
-        maxHP = HP;
-        currentHP = HP;
+        maxHP = level.getSoldierHP();
+        currentHP = level.getSoldierHP();
         collider = new CircleCollider(position, 30);
+        this.level = level;
+        gun = level.getGun();
     }
 
     @Override
     public String getPathToJPG() {
-        return "C:\\Users\\spawe\\OneDrive\\Pulpit\\Studia\\ProgramowanieObiektowe\\Strzelanka2D\\src\\Images\\soldier.png";
+        System.out.println(level.getSoldierHP());
+        System.out.println(level.getPath());
+        return level.getPath();
     }
 
     @Override
@@ -71,5 +73,10 @@ public class Soldier extends MovableElement {
             case STRONGER_BULLETS -> strongerBullets();
             case FASTER_RELOAD -> fasterReload();
         }
+    }
+
+
+    public String getHPInfo() {
+        return Integer.toString(currentHP) + "/" + Integer.toString(maxHP);
     }
 }

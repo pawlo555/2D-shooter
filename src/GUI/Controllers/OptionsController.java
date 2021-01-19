@@ -41,10 +41,12 @@ public class OptionsController {
         MapVisualizer visualizer = gameController.getVisualizer();
         visualizer.setMap(initMap);
         gameController.setEngine(initEngine);
+        System.out.println("Events:" + init.getEventsToHandle());
         gameController.setEvents(init.getEventsToHandle());
-        initEngine.setVisualizer(visualizer);
+        initEngine.addObserver(visualizer);
+        initEngine.addObserver(gameController);
         primaryStage.setScene(new Scene(gameRoot, initMap.getWidth(), initMap.getHeight()+ 50));
-        gameController.setElements();
+        gameController.setElements(init.isPVPorPVE());
 
     }
 

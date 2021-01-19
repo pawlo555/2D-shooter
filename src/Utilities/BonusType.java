@@ -11,13 +11,13 @@ public enum BonusType {
     public String getPath() {
         switch (this) {
             case FIRST_AID_KIT:
-                return "C:\\Users\\spawe\\OneDrive\\Pulpit\\Studia\\ProgramowanieObiektowe\\Strzelanka2D\\src\\Images\\firstAidKit.png";
+                return "src/Images/firstAidKit.png";
             case FASTER_MOVEMENT:
-                return "C:\\Users\\spawe\\OneDrive\\Pulpit\\Studia\\ProgramowanieObiektowe\\Strzelanka2D\\src\\Images\\fasterMovement.png";
+                return "src/Images/fasterMovement.png";
             case STRONGER_BULLETS:
-                return "C:\\Users\\spawe\\OneDrive\\Pulpit\\Studia\\ProgramowanieObiektowe\\Strzelanka2D\\src\\Images\\strongerBullets.png";
+                return "src/Images/strongerBullets.png";
             case FASTER_RELOAD:
-                return "C:\\Users\\spawe\\OneDrive\\Pulpit\\Studia\\ProgramowanieObiektowe\\Strzelanka2D\\src\\Images\\fasterReload.png";
+                return "src/Images/fasterReload.png";
         }
         return null;
     }

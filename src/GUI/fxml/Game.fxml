@@ -11,4 +11,13 @@
     <MapVisualizer  fx:id="visualizer" />
     <Button fx:id="startButton" text="Start" onAction="#startGame"/>
     <Label fx:id="result" visible="false" />
+    <HBox fx:id="soldiersHP">
+        <Label fx:id="player1HP" text="Player1: " />
+        <Label fx:id="player2HP" text="Player2: " visible="false"/>
+
+        <Label fx:id="bot1HP" visible="false"/>
+        <Label fx:id="bot2HP" visible="false"/>
+        <Label fx:id="bot3HP" visible="false"/>
+
+    </HBox>
 </Pane>

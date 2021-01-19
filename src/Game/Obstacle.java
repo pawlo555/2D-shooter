@@ -16,7 +16,7 @@ public class Obstacle extends StaticElement {
 
     @Override
     public String getPathToJPG() {
-        return  "C:\\Users\\spawe\\OneDrive\\Pulpit\\Studia\\ProgramowanieObiektowe\\Strzelanka2D\\src\\Images\\box.png";
+        return "src/Images/box.png";
     }
 
     @Override

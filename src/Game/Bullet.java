@@ -17,7 +17,7 @@ public class Bullet extends MovableElement{
 
     @Override
     public String getPathToJPG() {
-        return "C:\\Users\\spawe\\OneDrive\\Pulpit\\Studia\\ProgramowanieObiektowe\\Strzelanka2D\\src\\Images\\bullet.png";
+        return "src/Images/bullet.png";
     }
 
     @Override

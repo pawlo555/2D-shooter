@@ -7,12 +7,12 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 
+import java.util.ArrayList;
+
 public class Settings {
     private boolean FirstOrSecondMap;
     private boolean PVPorPVE;
-    private String firstOpponent;
-    private String secondOpponent;
-    private String thirdOpponent;
+    private ArrayList<SoldierLevel> botsLevels = new ArrayList<>();
 
     private boolean firstAidKit;
     private boolean strongerBullets;
@@ -28,9 +28,7 @@ public class Settings {
         RadioButton selectedMapRadioButton = (RadioButton) mapChanger.getSelectedToggle();
         FirstOrSecondMap = selectedMapRadioButton.getText().equals("First");
         System.out.println(isFirstOrSecondMap());
-        firstOpponent = getEnemyLevel(controller.getFirstOpponentsButtons());
-        secondOpponent = getEnemyLevel(controller.getSecondOpponentsButtons());
-        thirdOpponent = getEnemyLevel(controller.getThirdOpponentsButtons());
+        fillBotsLevels(controller);
 
         firstAidKit = controller.getFirstAidKit().isSelected();
         fasterReload = controller.getFasterReload().isSelected();
@@ -38,16 +36,24 @@ public class Settings {
         fasterMovement = controller.getFasterMovement().isSelected();
     }
 
-    private String getEnemyLevel(ToggleGroup toggleGroup) {
+    private void fillBotsLevels(OptionsController controller) {
+        botsLevels.add(getEnemyLevel(controller.getFirstOpponentsButtons()));
+        botsLevels.add(getEnemyLevel(controller.getSecondOpponentsButtons()));
+        botsLevels.add(getEnemyLevel(controller.getThirdOpponentsButtons()));
+    }
+
+    private SoldierLevel getEnemyLevel(ToggleGroup toggleGroup) {
         RadioButton secondOpponentRadioButton = (RadioButton) toggleGroup.getSelectedToggle();
-        if (secondOpponentRadioButton.getText().equals("EASY")) {
-            return "EASY";
+        if (secondOpponentRadioButton.getText().equals("Easy")) {
+            return SoldierLevel.EASY;
         }
-        else if (secondOpponentRadioButton.getText().equals("MEDIUM")){
-            return "MEDIUM";
+        else if (secondOpponentRadioButton.getText().equals("Medium")){
+            System.out.println("Medium");
+            return SoldierLevel.MEDIUM;
+
         }
         else {
-            return "HARD";
+            return SoldierLevel.HARD;
         }
     }
 
@@ -75,15 +81,7 @@ public class Settings {
         return strongerBullets;
     }
 
-    public String getFirstOpponent() {
-        return firstOpponent;
-    }
-
-    public String getSecondOpponent() {
-        return secondOpponent;
-    }
-
-    public String getThirdOpponent() {
-        return thirdOpponent;
+    public SoldierLevel getOpponentsLevels(int index) {
+        return botsLevels.get(index);
     }
 }

@@ -3,6 +3,7 @@ package Game;
 import GUI.MapVisualizer;
 import Utilities.BonusType;
 import Utilities.Settings;
+import Utilities.SoldierLevel;
 import Utilities.Vector2D;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
@@ -16,19 +17,21 @@ public class Initialization {
     private EventHandler<KeyEvent> eventsToHandle;
 
     private ArrayList<BonusType> possibleBonuses = new ArrayList<>();
+    private boolean isPVPorPVE;
 
     public Initialization(Settings settings) {
         fillPossibleBonuses(settings);
         this.map = new Map(settings);
         this.engine = new Engine(map, this);
+        addPlayer1();
         if (settings.isPVPorPVE()) {
             InitializePVP();
         }
         else {
-            InitializePVE();
+            InitializePVE(settings);
         }
-        addPlayer1();
 
+        isPVPorPVE = settings.isPVPorPVE();
     }
 
     private void fillPossibleBonuses(Settings settings) {
@@ -47,7 +50,7 @@ public class Initialization {
     }
 
     private void addPlayer1() {
-        Soldier player1 = new Soldier(10,new Vector2D(100,250));
+        Soldier player1 = new Soldier(SoldierLevel.MEDIUM,new Vector2D(100,250));
         System.out.println("After creation:" + player1.getCenter());
         map.addMovableElement(player1);
         engine.setPlayer1(player1);
@@ -56,21 +59,20 @@ public class Initialization {
     private void InitializePVP() {
         System.out.println("PVP");
         setPVPEventHandler();
-        Soldier player2 = new Soldier(10,new Vector2D(500,250));
+        Soldier player2 = new Soldier(SoldierLevel.MEDIUM,new Vector2D(500,250));
         map.addMovableElement(player2);
         engine.setPlayer2(player2);
     }
 
-    private void InitializePVE() {
-        System.out.println("PVE");
+    private void InitializePVE(Settings settings) {
+        addBot(settings.getOpponentsLevels(0), new Vector2D(550,100));
+        addBot(settings.getOpponentsLevels(1),new Vector2D(550,200));
+        addBot(settings.getOpponentsLevels(2),new Vector2D(550,300));
         setPVEEventHandler();
-        addBot(new Vector2D(550,100));
-        addBot(new Vector2D(550,200));
-        addBot(new Vector2D(550,300));
     }
 
-    private void addBot(Vector2D vector) {
-        Soldier bot = new Soldier(10, vector);
+    private void addBot(SoldierLevel level, Vector2D vector) {
+        Soldier bot = new Soldier(level, vector);
         map.addMovableElement(bot);
         engine.addBot(bot);
     }
@@ -151,5 +153,9 @@ public class Initialization {
 
     public ArrayList<BonusType> getPossibleBonuses() {
         return possibleBonuses;
+    }
+
+    public boolean isPVPorPVE() {
+        return isPVPorPVE;
     }
 }

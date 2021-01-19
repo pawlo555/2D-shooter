@@ -6,6 +6,7 @@ import Game.MapElement;
 import Game.MovableElement;
 import Utilities.Angle;
 import Utilities.EngineObserver;
+import Utilities.ImageHolder;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -17,6 +18,7 @@ import java.io.FileNotFoundException;
 
 public class MapVisualizer extends Canvas implements EngineObserver {
     private Map map;
+    private ImageHolder imageHolder = new ImageHolder();
 
     public void setMap(Map map) throws FileNotFoundException {
         this.map = map;
@@ -39,12 +41,12 @@ public class MapVisualizer extends Canvas implements EngineObserver {
     private void VisualizeBackground() throws FileNotFoundException {
         GraphicsContext gc = this.getGraphicsContext2D();
         Background background = this.map.getBackground();
-        Image image = new Image(new FileInputStream(background.getPathToJPG()));
+        Image image = imageHolder.getImageFromPath(background.getPathToJPG());
         gc.drawImage(image,0,0,map.getWidth(), map.getWidth());
     }
 
     private void VisualizeElement(GraphicsContext gc,MapElement element) throws FileNotFoundException {
-        Image image = new Image(new FileInputStream(element.getPathToJPG()));
+        Image image = imageHolder.getImageFromPath(element.getPathToJPG());
         Angle angle = new Angle(180);
         if (element instanceof MovableElement) {
             MovableElement movableElement = (MovableElement) element;

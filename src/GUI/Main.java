@@ -16,8 +16,10 @@ public class Main extends Application {
         OptionsController optionsController = loader.getController();
         System.out.println(optionsController);
         optionsController.setStage(primaryStage);
-        primaryStage.setTitle("Strzelanka2D");
-        primaryStage.setScene(new Scene(root, 500, 200));
+        primaryStage.setTitle("2DShooter");
+        Scene optionsScene = new Scene(root, 600, 450);
+        primaryStage.setScene(optionsScene);
+
         primaryStage.show();
     }
 

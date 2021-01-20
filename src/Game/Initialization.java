@@ -1,6 +1,5 @@
 package Game;
 
-import GUI.MapVisualizer;
 import Utilities.BonusType;
 import Utilities.Settings;
 import Utilities.SoldierLevel;
@@ -12,12 +11,11 @@ import javafx.scene.input.KeyEvent;
 import java.util.ArrayList;
 
 public class Initialization {
-    private Map map;
-    private Engine engine;
+    private final Map map;
+    private final Engine engine;
     private EventHandler<KeyEvent> eventsToHandle;
-
-    private ArrayList<BonusType> possibleBonuses = new ArrayList<>();
-    private boolean isPVPorPVE;
+    private final ArrayList<BonusType> possibleBonuses = new ArrayList<>();
+    private final boolean isPVPorPVE;
 
     public Initialization(Settings settings) {
         fillPossibleBonuses(settings);
@@ -30,7 +28,6 @@ public class Initialization {
         else {
             InitializePVE(settings);
         }
-
         isPVPorPVE = settings.isPVPorPVE();
     }
 

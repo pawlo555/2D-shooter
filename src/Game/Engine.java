@@ -1,12 +1,10 @@
 package Game;
 
-import GUI.MapVisualizer;
 import Utilities.BonusType;
 import Utilities.BotAI;
 import Utilities.EngineObserver;
 import Utilities.Vector2D;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -24,15 +22,15 @@ public class Engine {
     private Soldier player1;
     private Soldier player2;
 
-    private ArrayList<EngineObserver> observers = new ArrayList<>();
-    private Map map;
-    private CollisionEngine collisionEngine;
+    private final ArrayList<EngineObserver> observers = new ArrayList<>();
+    private final Map map;
+    private final CollisionEngine collisionEngine;
 
-    private ArrayList<Bullet> bullets = new ArrayList<>();
-    private ArrayList<Soldier> bots = new ArrayList<>();
-    private ArrayList<BotAI> botsAI = new ArrayList<>();
-    private ArrayList<Bonus> bonuses = new ArrayList<>();
-    private ArrayList<BonusType> possibleBonuses = new ArrayList<>();
+    private final ArrayList<Bullet> bullets = new ArrayList<>();
+    private final ArrayList<Soldier> bots = new ArrayList<>();
+    private final ArrayList<BotAI> botsAI = new ArrayList<>();
+    private final ArrayList<Bonus> bonuses = new ArrayList<>();
+    private final ArrayList<BonusType> possibleBonuses = new ArrayList<>();
 
     public Engine(Map map, Initialization init) {
         this.map = map;
@@ -41,11 +39,10 @@ public class Engine {
         possibleBonuses.addAll(init.getPossibleBonuses());
     }
 
-    public void nextTurn() throws FileNotFoundException, IllegalStateException {
-
+    public void nextTurn() throws IllegalStateException {
         if (isWPressed) {
             this.player1.moveBy(5);
-            if (collisionEngine.isCollision(player1) || !map.isInMap(player1)) {
+            if (collisionEngine.isCollision(player1) || map.isInMap(player1)) {
                 this.player1.moveBy(-5);
             }
         }
@@ -55,7 +52,7 @@ public class Engine {
 
         if (isSPressed) {
             this.player1.moveBy(-5);
-            if (collisionEngine.isCollision(player1) || !map.isInMap(player1)) {
+            if (collisionEngine.isCollision(player1) || map.isInMap(player1)) {
                 this.player1.moveBy(5);
             }
         }
@@ -67,13 +64,13 @@ public class Engine {
         }
         if (isUpPressed) {
             this.player2.moveBy(5);
-            if (collisionEngine.isCollision(player2) || !map.isInMap(player2)) {
+            if (collisionEngine.isCollision(player2) || map.isInMap(player2)) {
                 this.player2.moveBy(-5);
             }
         }
         if (isDownPressed) {
             this.player2.moveBy(-5);
-            if (collisionEngine.isCollision(player2) || !map.isInMap(player2)) {
+            if (collisionEngine.isCollision(player2) || map.isInMap(player2)) {
                 this.player2.moveBy(5);
             }
         }
@@ -145,7 +142,6 @@ public class Engine {
                 }
             }
         }
-
     }
 
     private boolean allBotsAreDead() {
@@ -157,7 +153,7 @@ public class Engine {
         return true;
     }
 
-    public void notifyObservers() {
+    private void notifyObservers() {
         for (EngineObserver observer: observers) {
             observer.nextEpochRendered();
         }
@@ -212,7 +208,7 @@ public class Engine {
                     hitSoldier.looseHP(bullet.getDamage());
                 }
             }
-            if (!map.isInMap(bullet)) {
+            if (map.isInMap(bullet)) {
                 System.out.println("Not in Map");
                 bulletsToRemove.add(bullet);
                 map.removeMovableElement(bullet);
@@ -241,8 +237,7 @@ public class Engine {
     }
 
     private ArrayList<Soldier> getSoldierList() {
-        ArrayList<Soldier> soldiers = new ArrayList<>();
-        soldiers.addAll(bots);
+        ArrayList<Soldier> soldiers = new ArrayList<>(bots);
         soldiers.add(player1);
         if (player2 != null)
             soldiers.add(player2);

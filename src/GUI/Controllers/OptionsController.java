@@ -1,22 +1,18 @@
 package GUI.Controllers;
-
 import GUI.MapVisualizer;
 import Game.*;
 import Utilities.Settings;
-import Utilities.Vector2D;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class OptionsController {
-
     @FXML private ToggleGroup versionButtons;
     @FXML private ToggleGroup mapChanger;
     @FXML private ToggleGroup firstOpponentsButtons;
@@ -26,7 +22,6 @@ public class OptionsController {
     @FXML private RadioButton fasterReload;
     @FXML private RadioButton strongerBullets;
     @FXML private RadioButton fasterMovement;
-
 
     private Stage primaryStage;
 
@@ -47,7 +42,6 @@ public class OptionsController {
         initEngine.addObserver(gameController);
         primaryStage.setScene(new Scene(gameRoot, initMap.getWidth(), initMap.getHeight()+ 50));
         gameController.setElements(init.isPVPorPVE());
-
     }
 
     public void setStage(Stage currentStage) {

@@ -11,14 +11,9 @@ public abstract class Collider {
         center = newPosition;
     }
 
-    public abstract boolean pointInside(Vector2D position);
-
     public abstract double lengthToEnd(Vector2D otherCollider);
 
     public Vector2D getCenter() {
         return center;
-    }
-    public void updateCenter(Vector2D newCenter){
-        this.center = newCenter;
     }
 }

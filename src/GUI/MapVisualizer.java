@@ -1,24 +1,16 @@
 package GUI;
+import Game.*;
+import Utilities.*;
 
-import Game.Background;
-import Game.Map;
-import Game.MapElement;
-import Game.MovableElement;
-import Utilities.Angle;
-import Utilities.EngineObserver;
-import Utilities.ImageHolder;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.transform.Rotate;
-
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class MapVisualizer extends Canvas implements EngineObserver {
     private Map map;
-    private ImageHolder imageHolder = new ImageHolder();
+    private final ImageHolder imageHolder = new ImageHolder();
 
     public void setMap(Map map) throws FileNotFoundException {
         this.map = map;

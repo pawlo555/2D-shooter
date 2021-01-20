@@ -1,23 +1,20 @@
 package Utilities;
 
 import GUI.Controllers.OptionsController;
-import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 
 import java.util.ArrayList;
 
 public class Settings {
-    private boolean FirstOrSecondMap;
-    private boolean PVPorPVE;
-    private ArrayList<SoldierLevel> botsLevels = new ArrayList<>();
+    private final boolean FirstOrSecondMap;
+    private final boolean PVPorPVE;
+    private final ArrayList<SoldierLevel> botsLevels = new ArrayList<>();
 
-    private boolean firstAidKit;
-    private boolean strongerBullets;
-    private boolean fasterReload;
-    private boolean fasterMovement;
+    private final boolean firstAidKit;
+    private final boolean strongerBullets;
+    private final boolean fasterReload;
+    private final boolean fasterMovement;
 
     public Settings(OptionsController controller) {
         ToggleGroup versionButtons = controller.getVersionButtons();

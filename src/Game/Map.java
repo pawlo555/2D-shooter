@@ -4,7 +4,6 @@ import Utilities.CircleCollider;
 import Utilities.MapObserver;
 import Utilities.Settings;
 import Utilities.Vector2D;
-import javafx.scene.input.KeyCombination;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +11,12 @@ import java.util.List;
 public class Map {
     private int height;
     private int width;
+    private final Background background;
 
     ArrayList<StaticElement> staticElements = new ArrayList<>();
     ArrayList<MovableElement> movableElements = new ArrayList<>();
-    private final Background background;
 
-    private ArrayList<MapObserver> observers = new ArrayList<>();
+    private final ArrayList<MapObserver> observers = new ArrayList<>();
 
     public Map(Settings settings) {
         if (settings.isFirstOrSecondMap()) {
@@ -25,7 +24,7 @@ public class Map {
         }
         else
             LoadSecondMap();
-        this.background = (new Background(height, width));
+        this.background = (new Background());
     }
 
     public void addStaticElement(StaticElement staticElement) {
@@ -117,8 +116,6 @@ public class Map {
         double radius = collider.lengthToEnd(new Vector2D(0,0));
         double X = center.getX();
         double Y = center.getY();
-        return (X-radius > 0 && Y-radius> 0 && X+radius < getWidth() && Y+radius < getHeight());
-
-
+        return (!(X - radius > 0) || !(Y - radius > 0) || !(X + radius < getWidth()) || !(Y + radius < getHeight()));
     }
 }

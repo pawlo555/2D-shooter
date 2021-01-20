@@ -4,8 +4,6 @@ import Utilities.BonusType;
 import Utilities.CircleCollider;
 import Utilities.Vector2D;
 
-import javax.management.InvalidAttributeValueException;
-
 public class Bonus extends StaticElement {
     private final BonusType bonusType;
     private final double size;
@@ -16,7 +14,6 @@ public class Bonus extends StaticElement {
         size = 15;
         collider = new CircleCollider(center,0);
     }
-
 
     @Override
     public String getPathToJPG() {

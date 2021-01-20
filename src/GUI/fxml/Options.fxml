@@ -9,57 +9,60 @@
 
 <VBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="GUI.Controllers.OptionsController"
-      prefHeight="400.0" prefWidth="600.0">
+      prefHeight="400.0" prefWidth="600.0"
+      stylesheets="@/GUI/Style.css">
+    <Label styleClass="Title" text="Options" />
+    <Label styleClass="subTitle" text="Choose version: " />
     <HBox>
-        <Label text="Choose version: " />
         <fx:define>
             <ToggleGroup fx:id="versionButtons"/>
         </fx:define>
         <RadioButton text="PVP" toggleGroup="$versionButtons" />
         <RadioButton text="PVE" toggleGroup="$versionButtons" selected="true"/>
     </HBox>
+    <Label text="Choose map: " />
     <HBox>
         <fx:define>
             <ToggleGroup fx:id="mapChanger"/>
         </fx:define>
-        <Label text="Choose map: " />
         <RadioButton text="First" toggleGroup="$mapChanger" selected="true"/>
         <RadioButton text="Second" toggleGroup="$mapChanger"/>
     </HBox>
+    <Label styleClass="subTitle" text="First opponent:" />
     <HBox>
         <fx:define>
             <ToggleGroup fx:id="firstOpponentsButtons"/>
         </fx:define>
-        <Label text="First opponent:" />
         <RadioButton text="Easy" toggleGroup="$firstOpponentsButtons" />
         <RadioButton text="Medium" toggleGroup="$firstOpponentsButtons" selected="true"/>
         <RadioButton text="Hard" toggleGroup="$firstOpponentsButtons"/>
     </HBox >
-
+    <Label styleClass="subTitle" text="Second opponent:" />
     <HBox>
         <fx:define>
             <ToggleGroup fx:id="secondOpponentsButtons"/>
         </fx:define>
-        <Label text="Second opponent:" />
+
         <RadioButton text="Easy" toggleGroup="$secondOpponentsButtons"/>
         <RadioButton text="Medium" toggleGroup="$secondOpponentsButtons" selected="true"/>
         <RadioButton text="Hard" toggleGroup="$secondOpponentsButtons"/>
-    </HBox >
+    </HBox>
+    <Label styleClass="subTitle" text="Third opponent:" />
     <HBox>
         <fx:define>
             <ToggleGroup fx:id="thirdOpponentsButtons"/>
         </fx:define>
-        <Label text="Third opponent:" />
+
         <RadioButton text="Easy" toggleGroup="$thirdOpponentsButtons"/>
         <RadioButton text="Medium" toggleGroup="$thirdOpponentsButtons" selected="true"/>
         <RadioButton text="Hard" toggleGroup="$thirdOpponentsButtons"/>
     </HBox>
-    <Label text="Bonuses" />
+    <Label styleClass="subTitle" text="Bonuses" />
     <HBox>
         <RadioButton fx:id='firstAidKit' text="First Aid Kit" />
         <RadioButton fx:id='strongerBullets' text="Stronger Bullets" />
         <RadioButton fx:id='fasterReload' text="Faster reload" />
         <RadioButton fx:id="fasterMovement" text="FasterMovement" />
     </HBox>
-    <Button text="Start" fx:id="start" onAction="#startGame" />
+    <Button  styleClass="subTitle" text="Start" onAction="#startGame" />
 </VBox>

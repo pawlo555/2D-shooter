@@ -1,8 +1,8 @@
 package GUI.Controllers;
-
 import GUI.MapVisualizer;
 import Game.Engine;
 import Utilities.EngineObserver;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -14,11 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
-
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-
-import static java.lang.System.exit;
 
 public class GameController implements EngineObserver {
     @FXML MapVisualizer visualizer;
@@ -50,10 +46,7 @@ public class GameController implements EngineObserver {
             ae -> {
                  try {
                       engine.nextTurn();
-                 } catch (FileNotFoundException e) {
-                      e.printStackTrace();
-                      exit(0); }
-                 catch (IllegalStateException e) {
+                 } catch (IllegalStateException e) {
                      timeline.pause();
                      setResults(e.getMessage());
                      System.out.println("Game ended");
@@ -68,10 +61,6 @@ public class GameController implements EngineObserver {
     private void setResults(String message) {
         result.setText(message);
         result.setVisible(true);
-    }
-
-    public void setScene(Scene scene) {
-        this.scene = scene;
     }
 
     public void setEvents() {

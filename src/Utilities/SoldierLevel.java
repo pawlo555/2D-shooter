@@ -2,8 +2,6 @@ package Utilities;
 
 import Game.Gun;
 
-import javax.print.DocFlavor;
-
 public enum SoldierLevel {
     EASY,
     HARD,

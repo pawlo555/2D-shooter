@@ -1,0 +1,31 @@
+HBox {
+    -fx-alignment: center;
+    -fx-spacing: 10;
+    -fx-padding: 5;
+}
+
+VBox {
+    -fx-alignment: center;
+    -fx-padding: 5;
+    -fx-spacing: 3;
+}
+
+.Title {
+    -fx-alignment: center;
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+    -fx-spacing: 2;
+}
+
+.subTitle {
+    -fx-alignment: center;
+    -fx-font-size: 13;
+    -fx-spacing: 2;
+}
+
+.Game {
+    -fx-alignment: center;
+    -fx-font-size: 20;
+    -fx-background-color: grey;
+    -fx-padding: 10;
+}

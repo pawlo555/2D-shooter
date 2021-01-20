@@ -1,8 +1,6 @@
 package Game;
 
 import Utilities.Angle;
-import Utilities.CircleCollider;
-import Utilities.Collider;
 import Utilities.Vector2D;
 
 public abstract class MovableElement extends MapElement {

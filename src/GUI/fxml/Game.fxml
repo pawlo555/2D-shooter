@@ -5,12 +5,13 @@
 
 <?import GUI.MapVisualizer?>
 <Pane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="GUI.Controllers.GameController"
-            prefHeight="400.0" prefWidth="600.0">
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="GUI.Controllers.GameController"
+      prefHeight="400.0" prefWidth="600.0"
+      stylesheets="@/GUI/Style.css">
     <MapVisualizer  fx:id="visualizer" />
-    <Button fx:id="startButton" text="Start" onAction="#startGame"/>
-    <Label fx:id="result" visible="false" />
+    <Button styleClass="Game" fx:id="startButton" text="Start" onAction="#startGame"/>
+    <Label styleClass="Game" fx:id="result" visible="false" />
     <HBox fx:id="soldiersHP">
         <Label fx:id="player1HP" text="Player1: " />
         <Label fx:id="player2HP" text="Player2: " visible="false"/>

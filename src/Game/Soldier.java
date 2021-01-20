@@ -6,8 +6,8 @@ public class Soldier extends MovableElement {
     private final int maxHP;
     private int currentHP;
     private double speed = 5.0;
-    private Gun gun;
-    private SoldierLevel level;
+    private final Gun gun;
+    private final SoldierLevel level;
 
     public Soldier(SoldierLevel level, Vector2D position) {
         super(position, new Angle());
@@ -77,6 +77,6 @@ public class Soldier extends MovableElement {
 
 
     public String getHPInfo() {
-        return Integer.toString(currentHP) + "/" + Integer.toString(maxHP);
+        return currentHP + "/" + maxHP;
     }
 }

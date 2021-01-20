@@ -4,14 +4,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Gun {
-    private Timer timer = new Timer();
+    private final Timer timer = new Timer();
     private boolean canShoot = true;
-    private int timeBetweenShoots = 1000;
-    private int reloadTime = 5000;
-    private final int maxAmmoInMagazine = 4;
+    private int reloadTime;
     private int currentAmmoInMagazine = 4;
-    private int damageDealt = 5;
-    private double bulletsVelocity = 10;
+    private int damageDealt;
 
     public Gun(int reloadTime, int damageDealt) {
         this.reloadTime = reloadTime;
@@ -23,11 +20,11 @@ public class Gun {
             canShoot = false;
             int shootingRest;
             if (currentAmmoInMagazine > 1) {
-                shootingRest = timeBetweenShoots;
+                shootingRest = 1000;
                 currentAmmoInMagazine -= 1;
             } else {
                 shootingRest = reloadTime;
-                currentAmmoInMagazine = maxAmmoInMagazine;
+                currentAmmoInMagazine = 4;
             }
             timer.schedule(new TimerTask() {
                 @Override
@@ -40,7 +37,7 @@ public class Gun {
     }
 
     public double getBulletsVelocity() {
-        return bulletsVelocity;
+        return 10;
     }
 
     public boolean isCanShoot() {

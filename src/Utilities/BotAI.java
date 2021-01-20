@@ -2,14 +2,13 @@ package Utilities;
 
 import Game.CollisionEngine;
 import Game.Engine;
-import Game.Map;
 import Game.Soldier;
 
 public class BotAI {
-    private Engine engine;
-    private CollisionEngine collisionEngine;
-    private Soldier bot;
-    private Soldier player;
+    private final Engine engine;
+    private final CollisionEngine collisionEngine;
+    private final Soldier bot;
+    private final Soldier player;
 
     public BotAI(Engine engine, CollisionEngine collisionEngine, Soldier bot, Soldier player) {
         this.engine = engine;
@@ -34,7 +33,7 @@ public class BotAI {
         bot.turnBy(5);
         double secondAngle = angle();
         bot.turnBy(355);
-        if (secondAngle - firstAngle < 0.05) {
+        if (secondAngle - firstAngle < 0.01) {
             return 0;
         }
         else
@@ -50,13 +49,12 @@ public class BotAI {
             bot.turnBy(10);
             System.out.println("Turned Right");
         }
-
     }
 
     private void move() {
         if (turnLeftOrRight() == 0) {
             bot.moveBy(5);
-            if (collisionEngine.isCollision(bot) || !engine.getMap().isInMap(bot)) {
+            if (collisionEngine.isCollision(bot) || engine.getMap().isInMap(bot)) {
                 bot.moveBy(-5);
             }
         }
@@ -77,5 +75,4 @@ public class BotAI {
     public Soldier getBot() {
         return bot;
     }
-
 }

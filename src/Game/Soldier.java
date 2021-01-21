@@ -13,15 +13,13 @@ public class Soldier extends MovableElement {
         super(position, new Angle());
         maxHP = level.getSoldierHP();
         currentHP = level.getSoldierHP();
-        collider = new CircleCollider(position, 30);
+        collider = new CircleCollider(position, 25);
         this.level = level;
         gun = level.getGun();
     }
 
     @Override
     public String getPathToJPG() {
-        System.out.println(level.getSoldierHP());
-        System.out.println(level.getPath());
         return level.getPath();
     }
 

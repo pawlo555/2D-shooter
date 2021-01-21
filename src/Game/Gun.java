@@ -37,7 +37,7 @@ public class Gun {
     }
 
     public double getBulletsVelocity() {
-        return 10;
+        return 3;
     }
 
     public boolean isCanShoot() {

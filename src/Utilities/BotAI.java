@@ -29,33 +29,42 @@ public class BotAI {
     }
 
     private double turnLeftOrRight() {
-        double firstAngle = angle();
+        bot.moveBy(25);
+        double firstDistance = getDistanceBetweenBotAndPlayer();
+        bot.moveBy(-25);
         bot.turnBy(5);
-        double secondAngle = angle();
-        bot.turnBy(355);
-        if (secondAngle - firstAngle < 0.01) {
+        bot.moveBy(25);
+        double secondDistance = getDistanceBetweenBotAndPlayer();
+        bot.moveBy(-25);
+        bot.turnBy(350);
+        bot.moveBy(25);
+        double thirdDistance = getDistanceBetweenBotAndPlayer();
+        bot.moveBy(-25);
+        bot.turnBy(5);
+        if (firstDistance < secondDistance && firstDistance < thirdDistance) {
             return 0;
         }
+        else if (secondDistance <= thirdDistance + 0.01) {
+            return -1;
+        }
         else
-            return (secondAngle - firstAngle);
+            return 1;
     }
 
     private void turn() {
         if (turnLeftOrRight() > 0) {
-            bot.turnBy(350);
-            System.out.println("Turned Left");
+            bot.turnBy(358);
         }
         else if (turnLeftOrRight() < 0) {
-            bot.turnBy(10);
-            System.out.println("Turned Right");
+            bot.turnBy(2);
         }
     }
 
     private void move() {
         if (turnLeftOrRight() == 0) {
-            bot.moveBy(5);
+            bot.moveBy(2);
             if (collisionEngine.isCollision(bot) || engine.getMap().isInMap(bot)) {
-                bot.moveBy(-5);
+                bot.moveBy(-2);
             }
         }
     }
@@ -71,6 +80,11 @@ public class BotAI {
         move();
         shoot();
     }
+
+    private double getDistanceBetweenBotAndPlayer() {
+        return bot.getCenter().distanceBetweenPoints(player.getCenter());
+    }
+
 
     public Soldier getBot() {
         return bot;

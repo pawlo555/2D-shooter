@@ -26,7 +26,6 @@ public class OptionsController {
     private Stage primaryStage;
 
     public void startGame() throws IOException {
-        System.out.println("Start a game");
         FXMLLoader gameLoader = new FXMLLoader(getClass().getResource("../fxml/Game.fxml"));
         Parent gameRoot = gameLoader.load();
         GameController gameController = gameLoader.getController();
@@ -36,7 +35,6 @@ public class OptionsController {
         MapVisualizer visualizer = gameController.getVisualizer();
         visualizer.setMap(initMap);
         gameController.setEngine(initEngine);
-        System.out.println("Events:" + init.getEventsToHandle());
         gameController.setEvents(init.getEventsToHandle());
         initEngine.addObserver(visualizer);
         initEngine.addObserver(gameController);

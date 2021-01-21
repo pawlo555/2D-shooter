@@ -42,7 +42,7 @@ public class GameController implements EngineObserver {
         setEvents();
         startButton.setVisible(false);
         this.timeline = new Timeline(new KeyFrame(
-            Duration.millis(100),
+            Duration.millis(16),
             ae -> {
                  try {
                       engine.nextTurn();

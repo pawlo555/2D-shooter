@@ -24,7 +24,6 @@ public class Settings {
         ToggleGroup mapChanger = controller.getMapChanger();
         RadioButton selectedMapRadioButton = (RadioButton) mapChanger.getSelectedToggle();
         FirstOrSecondMap = selectedMapRadioButton.getText().equals("First");
-        System.out.println(isFirstOrSecondMap());
         fillBotsLevels(controller);
 
         firstAidKit = controller.getFirstAidKit().isSelected();
@@ -45,9 +44,7 @@ public class Settings {
             return SoldierLevel.EASY;
         }
         else if (secondOpponentRadioButton.getText().equals("Medium")){
-            System.out.println("Medium");
             return SoldierLevel.MEDIUM;
-
         }
         else {
             return SoldierLevel.HARD;

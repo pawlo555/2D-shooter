@@ -8,7 +8,6 @@ public abstract class MovableElement extends MapElement {
     protected Angle angle;
 
     public MovableElement(Vector2D center, Angle angle) {
-        System.out.println(center);
         this.center = center;
         this.angle = angle;
     }

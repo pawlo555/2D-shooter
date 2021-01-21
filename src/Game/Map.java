@@ -68,7 +68,6 @@ public class Map {
     }
 
     private void LoadFirstMap() {
-        System.out.println("FirstMap");
         this.height = 500;
         this.width = 600;
         addStaticElement(new Obstacle(new Vector2D(130,100), 30));
@@ -78,7 +77,6 @@ public class Map {
     }
 
     private void LoadSecondMap() {
-        System.out.println("SecondMap");
         this.height = 600;
         this.width = 800;
         addStaticElement(new Obstacle(new Vector2D(370,100), 30));

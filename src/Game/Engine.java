@@ -41,9 +41,9 @@ public class Engine {
 
     public void nextTurn() throws IllegalStateException {
         if (isWPressed) {
-            this.player1.moveBy(5);
+            this.player1.moveBy(2);
             if (collisionEngine.isCollision(player1) || map.isInMap(player1)) {
-                this.player1.moveBy(-5);
+                this.player1.moveBy(-2);
             }
         }
         if (isSpacePressed) {
@@ -51,34 +51,34 @@ public class Engine {
         }
 
         if (isSPressed) {
-            this.player1.moveBy(-5);
+            this.player1.moveBy(-2);
             if (collisionEngine.isCollision(player1) || map.isInMap(player1)) {
-                this.player1.moveBy(5);
+                this.player1.moveBy(2);
             }
         }
         if (isAPressed) {
-            player1.turnBy(350);
+            player1.turnBy(358);
         }
         if (isDPressed) {
-            player1.turnBy(10);
+            player1.turnBy(2);
         }
         if (isUpPressed) {
-            this.player2.moveBy(5);
+            this.player2.moveBy(2);
             if (collisionEngine.isCollision(player2) || map.isInMap(player2)) {
-                this.player2.moveBy(-5);
+                this.player2.moveBy(-2);
             }
         }
         if (isDownPressed) {
-            this.player2.moveBy(-5);
+            this.player2.moveBy(-2);
             if (collisionEngine.isCollision(player2) || map.isInMap(player2)) {
-                this.player2.moveBy(5);
+                this.player2.moveBy(2);
             }
         }
         if (isLeftPressed) {
-            player2.turnBy(350);
+            player2.turnBy(358);
         }
         if (isRightPressed) {
-            player2.turnBy(10);
+            player2.turnBy(2);
         }
         if (isEnterPressed) {
             gunShoot(player2);
@@ -116,7 +116,6 @@ public class Engine {
     private Bonus bonusInArea(Soldier soldier) {
         for (Bonus bonus: bonuses) {
             if (bonus.getCenter().distanceBetweenPoints(soldier.getCenter()) < 45) {
-                System.out.println("Mam bonus!");
                 return bonus;
             }
         }
@@ -128,29 +127,17 @@ public class Engine {
         for (Soldier soldier: soldiers) {
             if (soldier.getCurrentHP() <= 0) {
                 map.removeMovableElement(soldier);
-                if (player1 == soldier) {
+                if (player1 == soldier && bots.size() == 0) {
                     throw new IllegalStateException("Second Player Won");
+                }
+                else if (player1 == soldier) {
+                    throw new IllegalStateException("Bots Won");
                 }
                 else if (player2 == soldier) {
                     throw new IllegalStateException("First Player Won");
                 }
-                else {
-                    botDies(soldier);
-                    if (allBotsAreDead()) {
-                        throw  new IllegalStateException("First Player Won");
-                    }
-                }
             }
         }
-    }
-
-    private boolean allBotsAreDead() {
-        for (Soldier soldier: bots) {
-            if (soldier.getCurrentHP() > 0) {
-                return false;
-            }
-        }
-        return true;
     }
 
     private void notifyObservers() {
@@ -160,10 +147,7 @@ public class Engine {
     }
 
     public void setPlayer1(Soldier player) {
-        System.out.println(player);
         this.player1 = player;
-        System.out.println(this.player1);
-        System.out.println(player1.getLowerRightCorner().toString());
     }
 
     public void setPlayer2(Soldier soldier) {
@@ -184,7 +168,6 @@ public class Engine {
 
     private void trySpawnBonus() {
         if (Math.random() > 0.99 && !possibleBonuses.isEmpty()) {
-            System.out.println("Spawn a Bonus");
             BonusType bonusType = possibleBonuses.get(ThreadLocalRandom.current().nextInt(possibleBonuses.size()));
             double x = Math.random()*map.getWidth();
             double y = Math.random()*map.getWidth();
@@ -199,17 +182,14 @@ public class Engine {
         for (Bullet bullet: bullets) {
             bullet.moveBy(bullet.getVelocity());
             if (collisionEngine.isCollision(bullet)) {
-                System.out.println("Boom");
                 bulletsToRemove.add(bullet);
                 map.removeMovableElement(bullet);
                 Soldier hitSoldier = getHitSoldier(bullet);
                 if (hitSoldier != null) {
-                    System.out.println("Bullet hit soldier");
                     hitSoldier.looseHP(bullet.getDamage());
                 }
             }
             if (map.isInMap(bullet)) {
-                System.out.println("Not in Map");
                 bulletsToRemove.add(bullet);
                 map.removeMovableElement(bullet);
             }
@@ -265,21 +245,6 @@ public class Engine {
             botsHPInfo.add("DEAD");
         }
         return botsHPInfo;
-    }
-
-    private void botDies(Soldier deadBot) {
-        for (Soldier bot: bots) {
-            if (bot == deadBot) {
-                for (BotAI ai: botsAI) {
-                    if (ai.getBot() == bot) {
-                        botsAI.remove(ai);
-                        break;
-                    }
-                }
-                bots.remove(bot);
-                return;
-            }
-        }
     }
 
     private void moveBots() {

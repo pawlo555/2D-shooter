@@ -9,11 +9,6 @@ public class CircleCollider extends Collider {
     }
 
     @Override
-    public boolean pointInside(Vector2D position) {
-        return this.getCenter().distanceBetweenPoints(position) < radius;
-    }
-
-    @Override
     public double lengthToEnd(Vector2D otherCollider) {
         return radius;
     }

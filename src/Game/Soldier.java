@@ -10,10 +10,10 @@ public class Soldier extends MovableElement {
     private final SoldierLevel level;
 
     public Soldier(SoldierLevel level, Vector2D position) {
-        super(position, new Angle());
+        super(position.add(new Vector2D(0,10)), new Angle());
         maxHP = level.getSoldierHP();
         currentHP = level.getSoldierHP();
-        collider = new CircleCollider(position, 25);
+        collider = new CircleCollider(position.add(new Vector2D(0,10)), 23);
         this.level = level;
         gun = level.getGun();
     }

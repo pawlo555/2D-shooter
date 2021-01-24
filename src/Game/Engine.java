@@ -136,6 +136,16 @@ public class Engine {
                 else if (player2 == soldier) {
                     throw new IllegalStateException("First Player Won");
                 }
+                else {
+                    bots.remove(soldier);
+                    map.removeMovableElement(soldier);
+                    for (BotAI ai: botsAI) {
+                        if (ai.getBot() == soldier) {
+                            botsAI.remove(ai);
+                            break;
+                        }
+                    }
+                }
             }
         }
     }
@@ -167,7 +177,7 @@ public class Engine {
     }
 
     private void trySpawnBonus() {
-        if (Math.random() > 0.99 && !possibleBonuses.isEmpty()) {
+        if (Math.random() > 0.996 && !possibleBonuses.isEmpty()) {
             BonusType bonusType = possibleBonuses.get(ThreadLocalRandom.current().nextInt(possibleBonuses.size()));
             double x = Math.random()*map.getWidth();
             double y = Math.random()*map.getWidth();

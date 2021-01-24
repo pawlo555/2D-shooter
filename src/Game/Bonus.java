@@ -7,7 +7,7 @@ import Utilities.Vector2D;
 public class Bonus extends StaticElement {
     private final BonusType bonusType;
     private final double size;
-    private int turnsToEnd = 100;
+    private int turnsToEnd = 1000;
     public Bonus(Vector2D center, BonusType bonusType) {
         super(center);
         this.bonusType = bonusType;

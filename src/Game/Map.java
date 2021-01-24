@@ -80,10 +80,9 @@ public class Map {
         this.height = 600;
         this.width = 800;
         addStaticElement(new Obstacle(new Vector2D(370,100), 30));
-        addStaticElement(new Obstacle(new Vector2D(370,200), 30));
-        addStaticElement(new Obstacle(new Vector2D(370,300), 30));
+        addStaticElement(new Obstacle(new Vector2D(370,250), 30));
         addStaticElement(new Obstacle(new Vector2D(370,400), 30));
-        addStaticElement(new Obstacle(new Vector2D(370,500), 30));
+        addStaticElement(new Obstacle(new Vector2D(370,550), 30));
     }
 
     private void elementAddedToMap(MapElement element) {

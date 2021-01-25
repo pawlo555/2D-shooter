@@ -14,7 +14,6 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Options.fxml"));
         Parent root = loader.load();
         OptionsController optionsController = loader.getController();
-        System.out.println(optionsController);
         optionsController.setStage(primaryStage);
         primaryStage.setTitle("2DShooter");
         Scene optionsScene = new Scene(root, 600, 450);

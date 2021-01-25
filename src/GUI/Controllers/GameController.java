@@ -38,7 +38,6 @@ public class GameController implements EngineObserver {
 
     public void startGame() {
         scene = startButton.getScene();
-        System.out.println(startButton.getScene());
         setEvents();
         startButton.setVisible(false);
         this.timeline = new Timeline(new KeyFrame(
@@ -49,7 +48,6 @@ public class GameController implements EngineObserver {
                  } catch (IllegalStateException e) {
                      timeline.pause();
                      setResults(e.getMessage());
-                     System.out.println("Game ended");
                  }
             }
             ));

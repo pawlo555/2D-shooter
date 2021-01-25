@@ -5,7 +5,7 @@ import Utilities.*;
 public class Soldier extends MovableElement {
     private final int maxHP;
     private int currentHP;
-    private double speed = 5.0;
+    private double speed = 2.0;
     private final Gun gun;
     private final SoldierLevel level;
 
@@ -39,7 +39,6 @@ public class Soldier extends MovableElement {
 
     public void looseHP(int HP) {
         currentHP = currentHP - HP;
-        System.out.println("Current HP: " + currentHP);
     }
 
     public int getCurrentHP() {
@@ -47,7 +46,7 @@ public class Soldier extends MovableElement {
     }
 
     public void fasterMovement() {
-        speed = speed + 3;
+        speed = speed + 0.5;
     }
 
     public void firstAidKit() {
@@ -59,7 +58,7 @@ public class Soldier extends MovableElement {
     }
 
     public void fasterReload() {
-        gun.setReloadTime(3000);
+        gun.setReloadTime(5000);
     }
 
     public void getBonus(Bonus bonus) {
@@ -73,8 +72,11 @@ public class Soldier extends MovableElement {
         }
     }
 
-
     public String getHPInfo() {
         return currentHP + "/" + maxHP;
+    }
+
+    public double getSpeed() {
+        return speed;
     }
 }

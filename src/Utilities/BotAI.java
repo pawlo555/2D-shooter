@@ -62,9 +62,9 @@ public class BotAI {
 
     private void move() {
         if (turnLeftOrRight() == 0) {
-            bot.moveBy(2);
+            bot.moveBy(bot.getSpeed());
             if (collisionEngine.isCollision(bot) || engine.getMap().isInMap(bot)) {
-                bot.moveBy(-2);
+                bot.moveBy(-bot.getSpeed());
             }
         }
     }

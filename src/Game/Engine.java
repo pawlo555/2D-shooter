@@ -41,9 +41,9 @@ public class Engine {
 
     public void nextTurn() throws IllegalStateException {
         if (isWPressed) {
-            this.player1.moveBy(2);
+            this.player1.moveBy(player1.getSpeed());
             if (collisionEngine.isCollision(player1) || map.isInMap(player1)) {
-                this.player1.moveBy(-2);
+                this.player1.moveBy(-player1.getSpeed());
             }
         }
         if (isSpacePressed) {
@@ -51,9 +51,9 @@ public class Engine {
         }
 
         if (isSPressed) {
-            this.player1.moveBy(-2);
+            this.player1.moveBy(-player1.getSpeed());
             if (collisionEngine.isCollision(player1) || map.isInMap(player1)) {
-                this.player1.moveBy(2);
+                this.player1.moveBy(player1.getSpeed());
             }
         }
         if (isAPressed) {
@@ -63,15 +63,15 @@ public class Engine {
             player1.turnBy(2);
         }
         if (isUpPressed) {
-            this.player2.moveBy(2);
+            this.player2.moveBy(player2.getSpeed());
             if (collisionEngine.isCollision(player2) || map.isInMap(player2)) {
-                this.player2.moveBy(-2);
+                this.player2.moveBy(-player2.getSpeed());
             }
         }
         if (isDownPressed) {
-            this.player2.moveBy(-2);
+            this.player2.moveBy(-player2.getSpeed());
             if (collisionEngine.isCollision(player2) || map.isInMap(player2)) {
-                this.player2.moveBy(2);
+                this.player2.moveBy(player2.getSpeed());
             }
         }
         if (isLeftPressed) {

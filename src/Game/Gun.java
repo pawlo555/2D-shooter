@@ -30,7 +30,6 @@ public class Gun {
                 @Override
                 public void run() {
                     canShoot = true;
-                    System.out.println("Gun ready to fire");
                 }
             }, shootingRest);
         }

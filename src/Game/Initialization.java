@@ -48,13 +48,11 @@ public class Initialization {
 
     private void addPlayer1() {
         Soldier player1 = new Soldier(SoldierLevel.MEDIUM,new Vector2D(100,250));
-        System.out.println("After creation:" + player1.getCenter());
         map.addMovableElement(player1);
         engine.setPlayer1(player1);
     }
 
     private void InitializePVP() {
-        System.out.println("PVP");
         setPVPEventHandler();
         Soldier player2 = new Soldier(SoldierLevel.MEDIUM,new Vector2D(500,250));
         map.addMovableElement(player2);
